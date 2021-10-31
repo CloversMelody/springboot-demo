@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.nuaa.springbootdemo.dao.UserInfoDao">
+    <resultMap id="UserInfoMap" type="edu.nuaa.springbootdemo.domain.UserInfo">
+        <result property="id" column="id" jdbcType="BIGINT"/>
+        <result property="accountNo" column="account_no" jdbcType="VARCHAR"/>
+        <result property="accountPwd" column="account_pwd" jdbcType="VARCHAR"/>
+        <result property="userName" column="user_name" jdbcType="VARCHAR"/>
+        <result property="userPhone" column="user_phone" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="allColumns">
+        id, account_no, account_pwd, user_name, user_phone
+    </sql>
+
+    <sql id="insertColumns">
+        account_no, account_pwd, user_name, user_phone
+    </sql>
+
+    <insert id="insert">
+        insert into user_info
+        (
+        <include refid="insertColumns"/>
+        )
+        values
+        (
+        #{ accountNo,jdbcType=VARCHAR },
+        #{ accountPwd,jdbcType=VARCHAR },
+        #{ userName,jdbcType=VARCHAR },
+        #{ userPhone,jdbcType=VARCHAR }
+        )
+    </insert>
+
+</mapper>
